@@ -1,5 +1,5 @@
 #!/bin/bash
-# PA5 build helper script
+# PA build helper script
 
 # red = errors, cyan = warnings, green = confirmations, blue = informational
 # plain for generic text, bold for titles, reset flag at each end of line
@@ -64,18 +64,6 @@ if [ "$(update-alternatives --list javac | wc -l)" -gt 1 ]; then
         JDK7_PATH=$(dirname $(update-alternatives --list javac | grep '\-7\-') | tail -n1)
         JRE7_PATH=$(dirname $JDK7_PATH/../jre/bin/java)
         export PATH=$JDK7_PATH:$JRE7_PATH:$PATH
-fi
-
-# Grab the build version
-VERSION_MAJOR=$(cat $DIR_ROOT/vendor/pa/vendor.mk | grep 'ROM_VERSION_MAJOR := *' | sed 's/ROM_VERSION_MAJOR := //g')
-VERSION_MINOR=$(cat $DIR_ROOT/vendor/pa/vendor.mk | grep 'ROM_VERSION_MINOR := *' | sed 's/ROM_VERSION_MINOR := //g')
-VERSION_MAINTENANCE=$(cat $DIR_ROOT/vendor/pa/vendor.mk | grep 'ROM_VERSION_MAINTENANCE := *' | sed 's/ROM_VERSION_MAINTENANCE := //g')
-VERSION_TAG=$(cat $DIR_ROOT/vendor/pa/vendor.mk | grep 'ROM_VERSION_TAG := *' | sed 's/ROM_VERSION_TAG := //g')
-
-if [ -n "$TAG" ]; then
-        VERSION=$VERSION_MAJOR.$VERSION_MINOR$VERSION_MAINTENANCE-$VERSION_TAG
-else
-        VERSION=$VERSION_MAJOR.$VERSION_MINOR$VERSION_MAINTENANCE
 fi
 
 # Grab all the command-line parameters
@@ -143,7 +131,7 @@ fi
 TIME_START=$(date +%s.%N)
 
 # Friendly logging to tell the user everything is working fine is always nice
-echo -e "${CLR_BLD_GRN}Building AOSPA $VERSION for $DEVICE${CLR_RST}"
+echo -e "${CLR_BLD_GRN}Building AOSPA for $DEVICE${CLR_RST}"
 echo -e "${CLR_GRN}Start time: $(date)${CLR_RST}"
 echo -e ""
 
